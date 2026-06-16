@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import re
 import sys
+from functools import cache
 
 if sys.version_info >= (3, 11):
     import tomllib
@@ -20,9 +21,13 @@ from compwa_nbhooks.errors import PrecommitError
 _PYPROJECT_PATH = "pyproject.toml"
 
 
+@cache
 def _load() -> dict:
-    with open(_PYPROJECT_PATH, "rb") as stream:
-        return tomllib.load(stream)
+    try:
+        with open(_PYPROJECT_PATH, "rb") as stream:
+            return tomllib.load(stream)
+    except FileNotFoundError:
+        return {}
 
 
 def get_package_name(*, raise_on_missing: bool = False) -> str | None:

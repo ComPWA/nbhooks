@@ -71,7 +71,6 @@ types = [
     "pytest",
     "sphinx-api-relink",
     "tomli",
-    "types-PyYAML",
 ]
 
 [tool.setuptools]

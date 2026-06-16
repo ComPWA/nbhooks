@@ -10,7 +10,6 @@ import nbformat
 
 from compwa_nbhooks.errors import PrecommitError
 from compwa_nbhooks.executor import Executor
-from compwa_nbhooks.match import git_ls_files
 from compwa_nbhooks.notebook import load_notebook
 from compwa_nbhooks.pyproject import has_dependency
 
@@ -38,7 +37,7 @@ def _set_nb_display_name(filename: str) -> None:
         .get("display_name")
     )
     expected_display_name = "Python 3 (ipykernel)"
-    if git_ls_files("**/pyproject.toml") and has_dependency("pyproject-local-kernel"):
+    if has_dependency("pyproject-local-kernel"):
         expected_display_name = "Pyproject Local"
     if display_name != expected_display_name:
         if "metadata" not in notebook:

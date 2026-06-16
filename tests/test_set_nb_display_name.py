@@ -9,7 +9,7 @@ from compwa_nbhooks.set_nb_display_name import main
 
 def test_sets_default_display_name(write_notebook, monkeypatch):
     # cspell:ignore kernelspec
-    monkeypatch.setattr(set_nb_display_name, "git_ls_files", lambda *_: [])
+    monkeypatch.setattr(set_nb_display_name, "has_dependency", lambda _: False)
     notebook = nbformat.v4.new_notebook()
     notebook["metadata"]["kernelspec"] = {"display_name": "wrong", "name": "python3"}
     path = write_notebook(notebook)
@@ -20,9 +20,6 @@ def test_sets_default_display_name(write_notebook, monkeypatch):
 
 
 def test_uses_pyproject_local_kernel(write_notebook, monkeypatch):
-    monkeypatch.setattr(
-        set_nb_display_name, "git_ls_files", lambda *_: ["pyproject.toml"]
-    )
     monkeypatch.setattr(set_nb_display_name, "has_dependency", lambda _: True)
     notebook = nbformat.v4.new_notebook()
     notebook["metadata"]["kernelspec"] = {"display_name": "wrong", "name": "python3"}
@@ -34,7 +31,7 @@ def test_uses_pyproject_local_kernel(write_notebook, monkeypatch):
 
 
 def test_idempotent(write_notebook, monkeypatch):
-    monkeypatch.setattr(set_nb_display_name, "git_ls_files", lambda *_: [])
+    monkeypatch.setattr(set_nb_display_name, "has_dependency", lambda _: False)
     notebook = nbformat.v4.new_notebook()
     notebook["metadata"]["kernelspec"] = {
         "display_name": "Python 3 (ipykernel)",
