@@ -8,7 +8,14 @@ PACKAGE_NAME = "compwa_nbhooks"
 
 add_module_names = False
 api_github_repo = f"{ORGANIZATION}/{REPO_NAME}"
-api_target_substitutions: dict[str, str | tuple[str, str]] = {}
+api_target_substitutions: dict[str, str | tuple[str, str]] = {
+    "NotebookNode": "nbformat.NotebookNode",
+    "P": "typing.ParamSpec",
+    "P.args": ("attr", "typing.ParamSpec.args"),
+    "P.kwargs": ("attr", "typing.ParamSpec.kwargs"),
+    "Path": "pathlib.Path",
+    "T": "typing.TypeVar",
+}
 author = "Common Partial Wave Analysis"
 autodoc_member_order = "bysource"
 autodoc_typehints_format = "short"

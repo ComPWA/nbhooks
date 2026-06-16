@@ -36,6 +36,14 @@
   "language": "en-US",
   "useGitignore": true,
   "version": "0.2",
-  "ignoreWords": ["poethepoet", "prereleased", "toctree", "venv"],
-  "words": ["ComPWA", "nbhooks"]
+  "ignoreWords": [
+    "Colab",
+    "automethod",
+    "nbformat",
+    "poethepoet",
+    "prereleased",
+    "toctree",
+    "venv"
+  ],
+  "words": ["Colaboratory", "ComPWA", "Deepnote", "nbhooks"]
 }

@@ -16,6 +16,8 @@ classifiers = [
 ]
 dependencies = [
     "nbformat",
+    'tomli; python_version<"3.11.0"',
+    'typing-extensions; python_version<"3.11.0"',
 ]
 description = "Pre-commit hooks for formatting and standardizing Jupyter notebooks"
 dynamic = ["version"]
@@ -27,6 +29,14 @@ requires-python = ">=3.10"
 [project.readme]
 content-type = "text/markdown"
 file = "README.md"
+
+[project.scripts]
+colab-toc-visible = "compwa_nbhooks.colab_toc_visible:main"
+fix-nbformat-version = "compwa_nbhooks.fix_nbformat_version:main"
+remove-empty-tags = "compwa_nbhooks.remove_empty_tags:main"
+set-nb-cells = "compwa_nbhooks.set_nb_cells:main"
+set-nb-display-name = "compwa_nbhooks.set_nb_display_name:main"
+strip-nb-whitespace = "compwa_nbhooks.strip_nb_whitespace:main"
 
 [project.urls]
 Changelog = "https://github.com/ComPWA/nbhooks/releases"
@@ -60,6 +70,8 @@ test = [
 types = [
     "pytest",
     "sphinx-api-relink",
+    "tomli",
+    "types-PyYAML",
 ]
 
 [tool.setuptools]
