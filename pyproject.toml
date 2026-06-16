@@ -1,0 +1,363 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+    "setuptools>=61.2",
+    "setuptools_scm",
+]
+
+[project]
+authors = [{name = "Common Partial Wave Analysis", email = "compwa-admin@ep1.rub.de"}]
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    "nbformat",
+]
+description = "Pre-commit hooks for formatting and standardizing Jupyter notebooks"
+dynamic = ["version"]
+license = {text = "BSD 3-Clause License"}
+maintainers = [{email = "compwa-admin@ep1.rub.de"}]
+name = "compwa-nbhooks"
+requires-python = ">=3.10"
+
+[project.readme]
+content-type = "text/markdown"
+file = "README.md"
+
+[project.urls]
+Changelog = "https://github.com/ComPWA/nbhooks/releases"
+Documentation = "https://compwa.github.io/nbhooks"
+Issues = "https://github.com/ComPWA/nbhooks/issues"
+Source = "https://github.com/ComPWA/nbhooks"
+
+[dependency-groups]
+dev = [
+    "ruff",
+    {include-group = "doc"},
+    {include-group = "style"},
+    {include-group = "test"},
+]
+doc = [
+    "myst-parser",
+    "sphinx",
+    "sphinx-api-relink",
+    "sphinx-book-theme",
+    "sphinx-codeautolink",
+    "sphinx-copybutton",
+]
+style = [
+    "ty",
+    {include-group = "types"},
+]
+test = [
+    "pytest",
+    "pytest-cov",
+]
+types = [
+    "pytest",
+    "sphinx-api-relink",
+]
+
+[tool.setuptools]
+include-package-data = false
+license-files = ["LICENSE"]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+namespaces = false
+where = ["src"]
+
+[tool.setuptools_scm]
+write_to = "src/compwa_nbhooks/version.py"
+
+[tool.compwa.policy]
+repo-name = "nbhooks"
+repo-title = "ComPWA notebook hooks"
+
+[tool.compwa.policy.github]
+no-pypi = true
+
+[tool.compwa.policy.python]
+keep-local-precommit = true
+type-checker = ["ty"]
+
+[tool.coverage.report]
+exclude_also = [
+    "if TYPE_CHECKING:",
+]
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "benchmarks/**/*.py",
+    "docs/**/*.ipynb",
+    "docs/**/*.py",
+    "examples/**/*.py",
+    "tests/**/*.py",
+]
+source = ["src"]
+
+[tool.poe.executor]
+isolated = true
+no-group = "dev"
+type = "uv"
+
+[tool.poe.groups.doc]
+heading = "Documentation"
+
+[tool.poe.groups.doc.tasks.doc]
+cmd = """
+sphinx-build \
+    --builder=html \
+    --fail-on-warning \
+    --keep-going \
+    --show-traceback \
+    docs/ \
+    docs/_build/html/
+"""
+executor = {group = "doc"}
+help = "Build the HTML documentation"
+
+[tool.poe.groups.doc.tasks.doclive]
+cmd = """
+sphinx-autobuild \
+    --builder=html \
+    --open-browser \
+    --port=0 \
+    --re-ignore=/__pycache__(/.*)?$ \
+    --re-ignore=/_build(/.*)?$ \
+    --re-ignore=/\\.egg-info(/.*)?$ \
+    --re-ignore=/api(/.*)?$ \
+    --re-ignore=/docs$ \
+    --re-ignore=/version\\.py$ \
+    --re-ignore=\\.egg-info(/.*)?$ \
+    --watch=src \
+    docs/ \
+    docs/_build/html/
+"""
+executor = {group = "doc", with = "sphinx-autobuild"}
+help = "Set up a server to directly preview changes to the HTML pages"
+
+[tool.poe.groups.doc.tasks.linkcheck]
+cmd = """
+sphinx-build \
+    --builder=linkcheck \
+    --show-traceback \
+    docs/ \
+    docs/_build/linkcheck/
+"""
+executor = {group = "doc"}
+help = "Check external links in the documentation (requires internet connection)"
+
+[tool.poe.groups.test]
+heading = "Testing"
+
+[tool.poe.groups.test.tasks.cov]
+cmd = """
+pytest \
+    --cov=compwa_nbhooks \
+    --cov-fail-under=75 \
+    --cov-report=html \
+    --cov-report=xml \
+    ${paths}
+"""
+executor = {group = "test"}
+help = "Compute how much of the source code is covered by tests"
+
+[[tool.poe.groups.test.tasks.cov.args]]
+default = "src tests"
+multiple = true
+name = "paths"
+positional = true
+
+[tool.poe.groups.test.tasks.test]
+cmd = "pytest --no-summary ${paths}"
+executor = {group = "test"}
+help = "Run all unit tests"
+
+[[tool.poe.groups.test.tasks.test.args]]
+default = "src tests"
+multiple = true
+name = "paths"
+positional = true
+
+[tool.poe.groups.test.tasks.test-all]
+help = "Run all tests on each supported Python version"
+sequence = [
+    {ref = "test-py310 ${paths}"},
+    {ref = "test-py311 ${paths}"},
+    {ref = "test-py312 ${paths}"},
+    {ref = "test-py313 ${paths}"},
+    {ref = "test-py314 ${paths}"},
+]
+
+[[tool.poe.groups.test.tasks.test-all.args]]
+default = ""
+multiple = true
+name = "paths"
+positional = true
+
+[tool.poe.groups.test.tasks.test-py310]
+env = {UV_PYTHON = "3.10"}
+ref = "test"
+
+[tool.poe.groups.test.tasks.test-py311]
+env = {UV_PYTHON = "3.11"}
+ref = "test"
+
+[tool.poe.groups.test.tasks.test-py312]
+env = {UV_PYTHON = "3.12"}
+ref = "test"
+
+[tool.poe.groups.test.tasks.test-py313]
+env = {UV_PYTHON = "3.13"}
+ref = "test"
+
+[tool.poe.groups.test.tasks.test-py314]
+env = {UV_PYTHON = "3.14"}
+ref = "test"
+
+[tool.poe.tasks.all]
+help = "Run all continuous integration (CI) tasks locally"
+ignore_fail = "return_non_zero"
+sequence = [
+    "cov",
+    "doc",
+    "linkcheck",
+    "style",
+    "test-all",
+]
+
+[tool.poe.tasks.style]
+cmd = "pre-commit run --all-files"
+executor = {group = "style"}
+help = "Perform all linting, formatting, and spelling checks"
+
+[tool.poe.tasks.upgrade]
+executor = {type = "simple"}
+help = "Upgrade lock files"
+parallel = [
+    {cmd = "pre-commit autoupdate -j8"},
+    {cmd = "uv lock --upgrade"},
+]
+
+[tool.pytest]
+addopts = [
+    "--color=yes",
+    "--doctest-continue-on-failure",
+    "--doctest-modules",
+    "--durations-min=0",
+    "--durations=3",
+    "--ignore=docs/conf.py",
+    "--import-mode=importlib",
+]
+filterwarnings = ["error"]
+minversion = "9.0"
+testpaths = [
+    "src",
+    "tests",
+]
+
+[tool.ruff]
+preview = true
+show-fixes = true
+src = [
+    "src",
+    "tests",
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+line-ending = "lf"
+
+[tool.ruff.lint]
+ignore = [
+    "ANN401",
+    "C408",
+    "COM812",
+    "CPY001",
+    "D101",
+    "D102",
+    "D103",
+    "D105",
+    "D107",
+    "D203",
+    "D213",
+    "D407",
+    "D416",
+    "DOC",
+    "E501",
+    "FBT",
+    "FURB101",
+    "FURB103",
+    "FURB140",
+    "G004",
+    "ISC001",
+    "PLR0913",
+    "PLW1514",
+    "PLW2901",
+    "PT001",
+    "PTH",
+    "RUF067",
+    "S301",
+    "SIM108",
+    "UP036",
+]
+select = ["ALL"]
+task-tags = ["cspell"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.isort]
+split-on-trailing-comma = false
+
+[tool.ruff.lint.per-file-ignores]
+"docs/*" = [
+    "E402",
+    "INP001",
+    "S101",
+    "S113",
+    "T201",
+]
+"docs/conf.py" = ["D100"]
+"tests/*" = [
+    "ANN",
+    "D",
+    "INP001",
+    "PLC2701",
+    "PLR2004",
+    "PLR6301",
+    "RUF069",
+    "S101",
+    "SLF001",
+    "T20",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.tomlsort]
+all = false
+ignore_case = true
+in_place = true
+sort_first = [
+    "build-system",
+    "project",
+    "tool.setuptools",
+    "tool.setuptools_scm",
+]
+spaces_indent_inline_array = 4
+trailing_comma_inline_array = true
+
+[tool.ty.rules]
+division-by-zero = "warn"
+possibly-missing-import = "warn"
+possibly-unresolved-reference = "warn"
+
+[tool.ty.terminal]
+error-on-warning = true
