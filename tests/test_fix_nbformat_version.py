@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import nbformat
 
 from compwa_nbhooks.fix_nbformat_version import main

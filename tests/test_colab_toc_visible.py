@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import nbformat
 
 from compwa_nbhooks.colab_toc_visible import main

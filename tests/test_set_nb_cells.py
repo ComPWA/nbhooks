@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import nbformat
 
 from compwa_nbhooks import set_nb_cells
