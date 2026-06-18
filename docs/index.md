@@ -3,7 +3,7 @@
 :::{title} Welcome
 :::
 
-This repository provides [pre-commit](https://pre-commit.com) hooks for formatting and standardizing [Jupyter notebooks](https://jupyter.org) across [repositories of the ComPWA organization](https://github.com/orgs/ComPWA/repositories). The hooks are distributed through this repository's [`.pre-commit-hooks.yaml`](https://github.com/ComPWA/nbhooks/blob/main/.pre-commit-hooks.yaml) and are consumed by listing them in a [`.pre-commit-config.yaml`](https://pre-commit.com/index.html#adding-pre-commit-plugins-to-your-project) file. These hooks were extracted from [ComPWA/policy](https://github.com/ComPWA/policy) (see [ComPWA/policy#612](https://github.com/ComPWA/policy/issues/612)).
+This repository provides [pre-commit](https://pre-commit.com) hooks for formatting and standardizing [Jupyter notebooks](https://jupyter.org) across [repositories of the ComPWA organization](https://github.com/orgs/ComPWA/repositories). The hooks are distributed through this repository's [`.pre-commit-hooks.yaml`](https://github.com/ComPWA/nbhooks/blob/main/.pre-commit-hooks.yaml) and are consumed by listing them in a [`.pre-commit-config.yaml`](https://pre-commit.com/index.html#adding-pre-commit-plugins-to-your-project) file.
 
 ## Usage
 

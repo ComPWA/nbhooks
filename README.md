@@ -10,7 +10,7 @@
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![ty](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ty/main/assets/badge/v0.json)](https://github.com/astral-sh/ty)
 
-This repository provides [pre-commit](https://pre-commit.com) hooks for formatting and standardizing [Jupyter notebooks](https://jupyter.org) in repositories of the [ComPWA organization](https://github.com/ComPWA) (see our [Help developing](https://compwa.github.io/develop) page). These hooks were extracted from [ComPWA/policy](https://github.com/ComPWA/policy); see [ComPWA/policy#612](https://github.com/ComPWA/policy/issues/612).
+This repository provides [pre-commit](https://pre-commit.com) hooks for formatting and standardizing [Jupyter notebooks](https://jupyter.org) in repositories of the [ComPWA organization](https://github.com/ComPWA) (see our [Help developing](https://compwa.github.io/develop) page).
 
 ## Usage
 
