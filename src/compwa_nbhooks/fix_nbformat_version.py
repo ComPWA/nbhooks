@@ -48,10 +48,13 @@ def set_nbformat_version(filename: str) -> None:
 
 def remove_cell_ids(filename: str) -> None:
     notebook = load_notebook(filename)
+    updated = False
     for cell in notebook["cells"]:
         if "id" in cell:
             del cell["id"]
-    nbformat.write(notebook, filename)
+            updated = True
+    if updated:
+        nbformat.write(notebook, filename)
 
 
 def check_svg_output_cells(filename: str) -> None:

@@ -49,6 +49,16 @@ def test_skips_notebook_with_marker(write_notebook):
     assert main(["--config-cell", path]) == 0
 
 
+def test_config_cell_in_empty_notebook(write_notebook):
+    notebook = _new_notebook()
+    path = write_notebook(notebook)
+
+    assert main(["--config-cell", path]) == 1
+    cells = load_notebook(path)["cells"]
+    assert len(cells) == 1
+    assert "STATIC_WEB_PAGE" in cells[0]["source"]
+
+
 def test_inserts_single_autolink_concat(write_notebook):
     notebook = _new_notebook()
     notebook["cells"].append(_cell(nbformat.v4.new_markdown_cell, "# Title"))

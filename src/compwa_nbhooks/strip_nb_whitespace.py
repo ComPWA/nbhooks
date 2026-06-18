@@ -34,9 +34,10 @@ def _strip_trailing_whitespace(filename: str) -> None:
         source = cell.get("source", "")
         if not isinstance(source, str):
             continue
-        if source and source[-1].isspace():
+        stripped: str = "\n".join(line.rstrip() for line in source.split("\n"))
+        if stripped != source:
             updated = True
-            cell["source"] = source.rstrip()
+            cell["source"] = stripped.rstrip()
     if updated:
         nbformat.write(notebook, filename)
         msg = f"Stripped trailing whitespace in {filename}"

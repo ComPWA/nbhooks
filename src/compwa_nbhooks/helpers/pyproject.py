@@ -45,16 +45,30 @@ def get_package_name(*, raise_on_missing: bool = False) -> str | None:
 def has_dependency(package: str | tuple[str, ...]) -> bool:
     """Check whether a package is listed as a dependency in :code:`pyproject.toml`.
 
-    Both the :code:`[project] dependencies` array and the
-    :code:`[dependency-groups]` are searched.
+    The :code:`[project] dependencies` array, the
+    :code:`[project.optional-dependencies]` groups, and the :code:`[dependency-groups]`
+    are searched. Package names are compared after `PEP 503
+    <https://peps.python.org/pep-0503/#normalized-names>`_ normalization.
     """
     document = _load()
-    dependencies = set(document.get("project", {}).get("dependencies", []))
+    project = document.get("project", {})
+    dependencies = set(project.get("dependencies", []))
+    for group in project.get("optional-dependencies", {}).values():
+        dependencies |= {entry for entry in group if isinstance(entry, str)}
     for group in document.get("dependency-groups", {}).values():
         dependencies |= {entry for entry in group if isinstance(entry, str)}
     packages = {package} if isinstance(package, str) else set(package)
+    packages = {_normalize(name) for name in packages}
     for dependency in dependencies:
         name_match = re.match(r"^[a-zA-Z0-9_.-]+", dependency)
-        if name_match is not None and name_match.group().lower() in packages:
+        if name_match is not None and _normalize(name_match.group()) in packages:
             return True
     return False
+
+
+def _normalize(name: str) -> str:
+    """Normalize a package name following `PEP 503`_.
+
+    .. _PEP 503: https://peps.python.org/pep-0503/#normalized-names
+    """
+    return re.sub(r"[-_.]+", "-", name).lower()

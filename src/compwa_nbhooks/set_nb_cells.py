@@ -5,8 +5,8 @@ automatically, so this has to be done through a code cell. At the same time, thi
 needs to be hidden from the documentation pages, when viewing through Jupyter Lab
 (Binder), and when viewing as Jupyter slides.
 
-This scripts sets the IPython InlineBackend.figure_formats option to SVG. This is
-because the Sphinx configuration can't set this externally.
+This script sets the IPython InlineBackend.figure_formats option to SVG. This is because
+the Sphinx configuration can't set this externally.
 
 Notebooks can be ignored by making the first cell a `Markdown cell
 <https://jupyter-notebook.readthedocs.io/en/latest/examples/Notebook/Working%20With%20Markdown%20Cells.html>`_
@@ -159,16 +159,17 @@ def _update_cell(
 ) -> bool:
     if _skip_notebook(notebook, ignore_comment="<!-- no-set-nb-cells -->"):
         return False
-    exiting_cell = notebook["cells"][cell_id]
     new_cell = nbformat.v4.new_code_cell(
         new_content,
         metadata=new_metadata,
     )
-    del new_cell["id"]  # following nbformat_minor = 4
-    if exiting_cell["cell_type"] == "code":
-        notebook["cells"][cell_id] = new_cell
+    new_cell.pop("id", None)  # following nbformat_minor = 4
+    cells = notebook["cells"]
+    existing_cell = cells[cell_id] if cell_id < len(cells) else None
+    if existing_cell is not None and existing_cell["cell_type"] == "code":
+        cells[cell_id] = new_cell
     else:
-        notebook["cells"].insert(cell_id, new_cell)
+        cells.insert(cell_id, new_cell)
     return True
 
 
@@ -201,7 +202,7 @@ def _insert_autolink_concat(notebook: NotebookNode) -> bool:
         if cell["cell_type"] != "markdown":
             continue
         new_cell = nbformat.v4.new_markdown_cell(__AUTOLINK_CONCAT)
-        del new_cell["id"]  # following nbformat_minor = 4
+        new_cell.pop("id", None)  # following nbformat_minor = 4
         notebook["cells"].insert(cell_id, new_cell)
         return True
     return False
