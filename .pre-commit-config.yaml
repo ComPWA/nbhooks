@@ -18,6 +18,7 @@ repos:
         args:
           - --no-pypi
           - --pytest-single-threaded
+          - --repo-name=nbhooks
           - --repo-title=ComPWA notebook hooks
           - --type-checker=ty
 
