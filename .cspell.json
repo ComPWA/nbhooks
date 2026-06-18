@@ -1,0 +1,41 @@
+{
+  "enableFiletypes": [
+    "git-commit",
+    "github-actions-workflow",
+    "julia",
+    "jupyter"
+  ],
+  "flagWords": [
+    "analyse",
+    "colour",
+    "comparision",
+    "favour",
+    "flavour",
+    "hte",
+    "optimise",
+    "paramater",
+    "parmater",
+    "transision",
+    "transisions"
+  ],
+  "ignorePaths": [
+    "**/.cspell.json",
+    "*.ico",
+    ".editorconfig",
+    ".envrc",
+    ".github/dependabot.yml",
+    ".gitignore",
+    ".pre-commit-config.yaml",
+    ".prettierignore",
+    ".taplo.toml",
+    ".vscode/*",
+    "codecov.yml",
+    "docs/conf.py",
+    "pyproject.toml"
+  ],
+  "language": "en-US",
+  "useGitignore": true,
+  "version": "0.2",
+  "ignoreWords": ["poethepoet", "prereleased", "toctree", "venv"],
+  "words": ["ComPWA", "nbhooks"]
+}
