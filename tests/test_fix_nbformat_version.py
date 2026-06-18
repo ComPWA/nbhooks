@@ -3,7 +3,7 @@ from __future__ import annotations
 import nbformat
 
 from compwa_nbhooks.fix_nbformat_version import main
-from compwa_nbhooks.notebook import load_notebook
+from compwa_nbhooks.helpers.notebook import load_notebook
 
 
 def test_sets_minor_version_and_strips_ids(write_notebook):

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import nbformat
 
-from compwa_nbhooks.notebook import load_notebook
+from compwa_nbhooks.helpers.notebook import load_notebook
 from compwa_nbhooks.remove_empty_tags import main
 
 

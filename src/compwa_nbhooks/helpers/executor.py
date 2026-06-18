@@ -1,8 +1,8 @@
 """Collect `.PrecommitError` instances from several executed functions.
 
 .. autolink-preface::
-    from compwa_nbhooks.errors import PrecommitError
-    from compwa_nbhooks.executor import Executor
+    from compwa_nbhooks.helpers.errors import PrecommitError
+    from compwa_nbhooks.helpers.executor import Executor
 """
 
 from __future__ import annotations
@@ -11,7 +11,7 @@ import sys
 from contextlib import AbstractContextManager
 from typing import TYPE_CHECKING, TypeVar
 
-from compwa_nbhooks.errors import PrecommitError
+from compwa_nbhooks.helpers.errors import PrecommitError
 
 if TYPE_CHECKING:
     from collections.abc import Callable

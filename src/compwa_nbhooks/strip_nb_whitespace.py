@@ -8,9 +8,9 @@ from typing import TYPE_CHECKING
 
 import nbformat
 
-from compwa_nbhooks.errors import PrecommitError
-from compwa_nbhooks.executor import Executor
-from compwa_nbhooks.notebook import load_notebook
+from compwa_nbhooks.helpers.errors import PrecommitError
+from compwa_nbhooks.helpers.executor import Executor
+from compwa_nbhooks.helpers.notebook import load_notebook
 
 if TYPE_CHECKING:
     from collections.abc import Sequence

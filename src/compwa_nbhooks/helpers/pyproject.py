@@ -16,7 +16,7 @@ if sys.version_info >= (3, 11):
 else:
     import tomli as tomllib
 
-from compwa_nbhooks.errors import PrecommitError
+from compwa_nbhooks.helpers.errors import PrecommitError
 
 _PYPROJECT_PATH = "pyproject.toml"
 

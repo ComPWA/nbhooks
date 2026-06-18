@@ -29,8 +29,8 @@ from typing import TYPE_CHECKING, cast
 import nbformat
 from nbformat import NotebookNode
 
-from compwa_nbhooks.notebook import load_notebook
-from compwa_nbhooks.pyproject import get_package_name
+from compwa_nbhooks.helpers.notebook import load_notebook
+from compwa_nbhooks.helpers.pyproject import get_package_name
 
 if TYPE_CHECKING:
     from collections.abc import Sequence

@@ -3,7 +3,7 @@ from __future__ import annotations
 import nbformat
 
 from compwa_nbhooks.colab_toc_visible import main
-from compwa_nbhooks.notebook import load_notebook
+from compwa_nbhooks.helpers.notebook import load_notebook
 
 
 def test_sets_toc_visible(write_notebook):
