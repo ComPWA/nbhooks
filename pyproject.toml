@@ -85,17 +85,6 @@ where = ["src"]
 [tool.setuptools_scm]
 write_to = "src/compwa_nbhooks/version.py"
 
-[tool.compwa.policy]
-repo-name = "nbhooks"
-repo-title = "ComPWA notebook hooks"
-
-[tool.compwa.policy.github]
-no-pypi = true
-
-[tool.compwa.policy.python]
-keep-local-precommit = true
-type-checker = ["ty"]
-
 [tool.coverage.report]
 exclude_also = [
     "if TYPE_CHECKING:",
