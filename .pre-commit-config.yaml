@@ -3,6 +3,8 @@ ci:
   autoupdate_commit_msg: "MAINT: upgrade lock files"
   autoupdate_schedule: quarterly
   skip:
+    - tombi-format
+    - tombi-lint
     - ty
 
 repos:
@@ -12,7 +14,7 @@ repos:
       - id: check-useless-excludes
 
   - repo: https://github.com/ComPWA/policy
-    rev: 1bb44b1762d2b8b31fc3bd4e5651e8a6fdaff18a
+    rev: 1a1d5e8a13c4f76cee452121b5bafe2286dec2f4
     hooks:
       - id: check-dev-files
 
@@ -41,21 +43,17 @@ repos:
         args: ["--django"]
       - id: trailing-whitespace
 
+  - repo: https://github.com/tombi-toml/tombi-pre-commit
+    rev: v1.2.0
+    hooks:
+      - id: tombi-format
+      - id: tombi-lint
+        args: [--error-on-warnings]
+
   - repo: https://github.com/ComPWA/prettier-pre-commit
     rev: v3.8.1
     hooks:
       - id: prettier
-
-  - repo: https://github.com/ComPWA/taplo-pre-commit
-    rev: v0.9.3
-    hooks:
-      - id: taplo-format
-
-  - repo: https://github.com/pappasam/toml-sort
-    rev: v0.24.4
-    hooks:
-      - id: toml-sort
-        args: [--in-place]
 
   - repo: https://github.com/streetsidesoftware/cspell-cli
     rev: v10.0.1
@@ -78,4 +76,4 @@ repos:
     rev: v0.0.59
     hooks:
       - id: ty
-        args: [--no-default-groups, --group=types]
+        args: [--group=types, --no-default-groups]
