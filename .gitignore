@@ -1,8 +1,4 @@
-**.code-workspace
-*.egg-info/
-*.pyc
-*build/
-*venv/
+__pycache__/
 .agents/
 .claude/
 .codex/
@@ -12,9 +8,13 @@
 .fuse_*
 .idea/
 .pytest_cache/
+*.egg-info/
+*.pyc
+**.code-workspace
+*build/
+*venv/
 AGENTS.md
 CLAUDE.md
-__pycache__/
 coverage.xml
 dist/
 htmlcov/
