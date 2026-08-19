@@ -1,5 +1,7 @@
 __pycache__/
+.agents/
 .claude/
+.codex/
 .coverage
 .coverage.*
 .eggs/
@@ -11,6 +13,7 @@ __pycache__/
 **.code-workspace
 *build/
 *venv/
+AGENTS.md
 CLAUDE.md
 coverage.xml
 dist/

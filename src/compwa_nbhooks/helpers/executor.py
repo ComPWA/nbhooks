@@ -95,7 +95,7 @@ class Executor(AbstractContextManager):
         if error_message:
             if self.__raise_exception:
                 raise PrecommitError(error_message)
-            print(error_message)  # noqa: T201
+            print(error_message)  # ruff: ignore[print]
         return True
 
     def __merge_messages(self) -> str:
