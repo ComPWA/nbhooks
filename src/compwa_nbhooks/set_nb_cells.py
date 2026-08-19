@@ -126,13 +126,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             updated |= _insert_autolink_concat(notebook)
             if (n_autolink := _count_autolink_concat(notebook)) > 1:
                 failed |= True
-                print(  # noqa: T201
+                print(  # ruff: ignore[print]
                     f"Found {n_autolink} autolink-concat cells in {filename}, should be"
                     " only one. Please remove duplicates.",
                     file=sys.stderr,
                 )
         if updated:
-            print(f"Updated {filename}", file=sys.stderr)  # noqa: T201
+            print(f"Updated {filename}", file=sys.stderr)  # ruff: ignore[print]
             nbformat.validate(notebook)
             nbformat.write(notebook, filename)
             failed |= True
