@@ -19,3 +19,11 @@ def test_leaves_clean_source(write_notebook):
     path = write_notebook(notebook)
 
     assert main([path]) == 0
+
+
+def test_strips_trailing_newline(write_notebook):
+    notebook = nbformat.v4.new_notebook()
+    notebook["cells"].append(nbformat.v4.new_code_cell("print(1)\n"))
+    path = write_notebook(notebook)
+    assert main([path]) == 1
+    assert load_notebook(path)["cells"][0]["source"] == "print(1)"
