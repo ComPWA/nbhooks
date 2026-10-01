@@ -44,7 +44,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: v1.5.8
+    rev: v1.6.1
     hooks:
       - id: tombi-format
       - id: tombi-lint
@@ -56,7 +56,7 @@ repos:
       - id: prettier
 
   - repo: https://github.com/streetsidesoftware/cspell-cli
-    rev: v10.2.0
+    rev: v10.3.0
     hooks:
       - id: cspell
 
