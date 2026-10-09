@@ -7,7 +7,6 @@
 
 from __future__ import annotations
 
-import sys
 from contextlib import AbstractContextManager
 from typing import TYPE_CHECKING, TypeVar
 
@@ -17,14 +16,7 @@ if TYPE_CHECKING:
     from collections.abc import Callable
     from types import TracebackType
 
-if sys.version_info >= (3, 10):
-    from typing import ParamSpec
-else:
-    from typing_extensions import ParamSpec
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
+from typing import ParamSpec, Self
 
 T = TypeVar("T")
 P = ParamSpec("P")

@@ -8,13 +8,8 @@ read the package name and check whether a package is listed as a dependency.
 from __future__ import annotations
 
 import re
-import sys
+import tomllib
 from functools import cache
-
-if sys.version_info >= (3, 11):
-    import tomllib
-else:
-    import tomli as tomllib
 
 from compwa_nbhooks.helpers.errors import PrecommitError
 
