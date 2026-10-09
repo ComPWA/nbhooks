@@ -14,7 +14,7 @@ api_target_substitutions: dict[str, str | tuple[str, str]] = {
     "P.kwargs": ("attr", "typing.ParamSpec.kwargs"),
     "T": "typing.TypeVar",
 }
-author = "Common Partial Wave Analysis"
+author = ""
 autodoc_member_order = "bysource"
 autodoc_typehints_format = "short"
 autosectionlabel_prefix_document = True
