@@ -14,14 +14,14 @@ api_target_substitutions: dict[str, str | tuple[str, str]] = {
     "P.kwargs": ("attr", "typing.ParamSpec.kwargs"),
     "T": "typing.TypeVar",
 }
-author = "Common Partial Wave Analysis"
+author = ""
 autodoc_member_order = "bysource"
 autodoc_typehints_format = "short"
 autosectionlabel_prefix_document = True
 codeautolink_concat_default = True
 copybutton_prompt_is_regexp = True
 copybutton_prompt_text = r">>> |\.\.\. "  # doctest
-copyright = "2026, Common Partial Wave Analysis"
+copyright = f"2026, {ORGANIZATION}"
 default_role = "py:obj"
 extensions = [
     "myst_parser",
