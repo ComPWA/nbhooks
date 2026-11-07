@@ -81,7 +81,9 @@ intersphinx_mapping = {
 linkcheck_ignore = [
     "https://github.com/ComPWA/nbhooks/blob/main/.pre-commit-hooks.yaml",
 ]
+myst_colon_fence_exact_match = True
 myst_enable_extensions = [
+    "alert",
     "colon_fence",
 ]
 nitpicky = True
