@@ -44,7 +44,7 @@ dev = [
     { include-group = "test" },
 ]
 doc = [
-    "myst-parser >=5.1",
+    "myst-parser>=5.1",
     "sphinx",
     "sphinx-api-relink",
     "sphinx-book-theme",
