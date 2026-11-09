@@ -1,4 +1,4 @@
-"""Minimal read-only access to the consuming repository's :code:`pyproject.toml`.
+"""Minimal read-only access to the consuming repository's ``pyproject.toml``.
 
 This is a small, dependency-light substitute for the full ``Pyproject`` utility in
 `ComPWA/policy <https://github.com/ComPWA/policy>`_. The notebook hooks only need to
@@ -26,7 +26,7 @@ def _load() -> dict:
 
 
 def get_package_name(*, raise_on_missing: bool = False) -> str | None:
-    """Get the package name from the :code:`[project]` table."""
+    """Get the package name from the ``[project]`` table."""
     name = _load().get("project", {}).get("name")
     if name is None and raise_on_missing:
         msg = (
@@ -38,12 +38,11 @@ def get_package_name(*, raise_on_missing: bool = False) -> str | None:
 
 
 def has_dependency(package: str | tuple[str, ...]) -> bool:
-    """Check whether a package is listed as a dependency in :code:`pyproject.toml`.
+    """Check whether a package is listed as a dependency in ``pyproject.toml``.
 
-    The :code:`[project] dependencies` array, the
-    :code:`[project.optional-dependencies]` groups, and the :code:`[dependency-groups]`
-    are searched. Package names are compared after `PEP 503
-    <https://peps.python.org/pep-0503/#normalized-names>`_ normalization.
+    The ``[project] dependencies`` array, the ``[project.optional-dependencies]``
+    groups, and the ``[dependency-groups]`` are searched. Package names are compared
+    after `PEP 503 <https://peps.python.org/pep-0503/#normalized-names>`_ normalization.
     """
     document = _load()
     project = document.get("project", {})
@@ -64,6 +63,6 @@ def has_dependency(package: str | tuple[str, ...]) -> bool:
 def _normalize(name: str) -> str:
     """Normalize a package name following `PEP 503`_.
 
-    .. _PEP 503: https://peps.python.org/pep-0503/#normalized-names
+    .. _pep 503: https://peps.python.org/pep-0503/#normalized-names
     """
     return re.sub(r"[-_.]+", "-", name).lower()

@@ -1,8 +1,6 @@
 """Collect `.PrecommitError` instances from several executed functions.
 
-.. autolink-preface::
-    from compwa_nbhooks.helpers.errors import PrecommitError
-    from compwa_nbhooks.helpers.executor import Executor
+.. autolink-preface:: from compwa_nbhooks.helpers.executor import Executor, PrecommitError
 """
 
 from __future__ import annotations
@@ -25,16 +23,15 @@ P = ParamSpec("P")
 class Executor(AbstractContextManager):
     r"""Execute functions and collect any `.PrecommitError` exceptions.
 
-    The collected exceptions are merged and re-raised as a single `.PrecommitError`
-    when the context manager exits. Set :code:`raise_exception=False` to print the
-    collected messages instead of raising.
+    The collected exceptions are merged and re-raised as a single `.PrecommitError` when
+    the context manager exits. Set ``raise_exception=False`` to print the collected
+    messages instead of raising.
 
     >>> def function1() -> None:
     ...     raise PrecommitError("Error message 1")
     >>> def function2() -> None:
     ...     raise PrecommitError("Error message 2")
     >>> def function3() -> None: ...
-    >>>
     >>> with Executor(raise_exception=False) as execute:
     ...     execute(function1)
     ...     execute(function2)

@@ -39,6 +39,7 @@ strip-nb-whitespace = "compwa_nbhooks.strip_nb_whitespace:main"
 [dependency-groups]
 dev = [
     "ruff",
+    "ty",
     { include-group = "doc" },
     { include-group = "style" },
     { include-group = "test" },
@@ -52,7 +53,6 @@ doc = [
     "sphinx-copybutton",
 ]
 style = [
-    "ty",
     { include-group = "types" },
 ]
 test = [
@@ -84,6 +84,7 @@ type-checker = ["ty"]
 
 [tool.coverage.report]
 exclude_also = ["if TYPE_CHECKING:"]
+fail_under = 75
 
 [tool.coverage.run]
 branch = true
@@ -95,6 +96,10 @@ omit = [
     "tests/**/*.py",
 ]
 source = ["src"]
+
+[tool.docstrfmt]
+docstring-trailing-line = false
+format-python-code-blocks = false
 
 [tool.lychee]
 cache = true
@@ -171,7 +176,6 @@ heading = "Testing"
 cmd = """
 pytest \
     --cov=compwa_nbhooks \
-    --cov-fail-under=75 \
     --cov-report=html \
     --cov-report=xml \
     ${paths}
@@ -378,7 +382,7 @@ key-empty = "off"
 
 [[tool.tombi.schemas]]
 root = "tool.compwa.policy"
-path = "https://raw.githubusercontent.com/ComPWA/policy/0.10.3/compwa-policy.schema.json"
+path = "https://raw.githubusercontent.com/ComPWA/policy/0.10.4/compwa-policy.schema.json"
 include = ["pyproject.toml"]
 
 [tool.ty.rules]
