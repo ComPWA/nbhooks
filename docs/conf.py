@@ -78,9 +78,6 @@ intersphinx_mapping = {
     "nbformat": ("https://nbformat.readthedocs.io/en/stable", None),
     "python": ("https://docs.python.org/3", None),
 }
-linkcheck_ignore = [
-    "https://github.com/ComPWA/nbhooks/blob/main/.pre-commit-hooks.yaml",
-]
 myst_colon_fence_exact_match = True
 myst_enable_extensions = [
     "alert",
