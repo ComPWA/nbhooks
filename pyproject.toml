@@ -107,9 +107,7 @@ cache = true
 cache_exclude_status = "400.."
 # [:] keeps Lychee from extracting regex patterns as URLs.
 exclude = [
-    "%7B[^/]*%7D",  # URL templates are completed at build or runtime
-    "^https[:]//x-access-token/$",  # Token-authenticated Git remote placeholder
-    '\$(?:NEXT_[A-Z_]+|PREVIOUS_TAG)',  # Release Drafter substitutes these placeholders at runtime
+    '^https[:]//github\.com/%7BORGANIZATION%7D/%7BREPO_NAME%7D$',  # URL template completed at runtime
 ]
 exclude_path = ["tests"]  # Test fixtures contain dummy URLs
 extensions = ["json", "md", "py", "toml", "yaml", "yml"]
@@ -118,10 +116,7 @@ include_fragments = "anchor-only"
 include_verbatim = true
 max_cache_age = "7d"
 remap = [
-    '^git\+(https[:]//[^@]+)(@.*)?$ $1',
-    "^(.+)/n$ $1",
-    '^(https[:]//github\.com/ComPWA/nbhooks/compare)/\$PREVIOUS_TAG.*$ $1',
-    '^https[:]//pypi\.org/p/\$$ https://pypi.org/project/compwa-nbhooks/',
+    '^(https[:]//github\.com/ComPWA/nbhooks/compare)/\$PREVIOUS_TAG\.\.\.\$NEXT_PATCH_VERSION$ $1',
 ]
 
 [tool.poe.executor]
