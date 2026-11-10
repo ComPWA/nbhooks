@@ -77,6 +77,7 @@ repo-name = "nbhooks"
 repo-title = "ComPWA notebook hooks"
 
 [tool.compwa.policy.github]
+dependabot-assignees = ["redeboer"]
 no-pypi = true
 
 [tool.compwa.policy.python]
