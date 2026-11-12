@@ -23,6 +23,11 @@ copybutton_prompt_is_regexp = True
 copybutton_prompt_text = r">>> |\.\.\. "  # doctest
 copyright = f"2026, {ORGANIZATION}"
 default_role = "py:obj"
+exclude_patterns = [
+    "**AGENTS.md",
+    "**CLAUDE.md",
+    "**GEMINI.md",
+]
 extensions = [
     "myst_parser",
     "sphinx_api_relink",
@@ -78,10 +83,9 @@ intersphinx_mapping = {
     "nbformat": ("https://nbformat.readthedocs.io/en/stable", None),
     "python": ("https://docs.python.org/3", None),
 }
-linkcheck_ignore = [
-    "https://github.com/ComPWA/nbhooks/blob/main/.pre-commit-hooks.yaml",
-]
+myst_colon_fence_exact_match = True
 myst_enable_extensions = [
+    "alert",
     "colon_fence",
 ]
 nitpicky = True

@@ -51,7 +51,7 @@ __CONFIG_CELL_METADATA: dict = {
 __INSTALL_CELL_METADATA: dict = {
     **__CONFIG_CELL_METADATA,
     "tags": ["remove-cell", "skip-execution"],
-    # https://github.com/executablebooks/jupyter-book/issues/833
+    # https://github.com/jupyter-book/jupyter-book/issues/833
 }
 __AUTOLINK_CONCAT = """
 :::{autolink-concat}

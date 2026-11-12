@@ -39,12 +39,13 @@ strip-nb-whitespace = "compwa_nbhooks.strip_nb_whitespace:main"
 [dependency-groups]
 dev = [
     "ruff",
+    "ty",
     { include-group = "doc" },
     { include-group = "style" },
     { include-group = "test" },
 ]
 doc = [
-    "myst-parser",
+    "myst-parser>=5.1",
     "sphinx",
     "sphinx-api-relink",
     "sphinx-book-theme",
@@ -52,7 +53,6 @@ doc = [
     "sphinx-copybutton",
 ]
 style = [
-    "ty",
     { include-group = "types" },
 ]
 test = [
@@ -77,6 +77,7 @@ repo-name = "nbhooks"
 repo-title = "ComPWA notebook hooks"
 
 [tool.compwa.policy.github]
+dependabot-assignees = ["redeboer"]
 no-pypi = true
 
 [tool.compwa.policy.python]
@@ -84,6 +85,7 @@ type-checker = ["ty"]
 
 [tool.coverage.report]
 exclude_also = ["if TYPE_CHECKING:"]
+fail_under = 80
 
 [tool.coverage.run]
 branch = true
@@ -95,6 +97,27 @@ omit = [
     "tests/**/*.py",
 ]
 source = ["src"]
+
+[tool.docstrfmt]
+docstring-trailing-line = false
+format-python-code-blocks = false
+
+[tool.lychee]
+cache = true
+cache_exclude_status = "400.."
+# [:] keeps Lychee from extracting regex patterns as URLs.
+exclude = [
+    '^https[:]//github\.com/%7BORGANIZATION%7D/%7BREPO_NAME%7D$',  # URL template completed at runtime
+]
+exclude_path = ["tests"]  # Test fixtures contain dummy URLs
+extensions = ["json", "md", "py", "toml", "yaml", "yml"]
+hidden = true  # Include the workflows under .github/
+include_fragments = "anchor-only"
+include_verbatim = true
+max_cache_age = "7d"
+remap = [
+    '^(https[:]//github\.com/ComPWA/nbhooks/compare)/\$PREVIOUS_TAG\.\.\.\$NEXT_PATCH_VERSION$ $1',
+]
 
 [tool.poe.executor]
 isolated = true
@@ -138,15 +161,9 @@ executor = { group = "doc", with = "sphinx-autobuild" }
 help = "Set up a server to directly preview changes to the HTML pages"
 
 [tool.poe.groups.doc.tasks.linkcheck]
-cmd = """
-sphinx-build \
-    --builder=linkcheck \
-    --show-traceback \
-    docs/ \
-    docs/_build/linkcheck/
-"""
-executor = { group = "doc" }
-help = "Check external links in the documentation (requires internet connection)"
+cmd = "uvx --from lychee-bin lychee . --quiet"
+executor = { type = "simple" }
+help = "Check links and fragments in repository sources (requires internet connection)"
 
 [tool.poe.groups.test]
 heading = "Testing"
@@ -155,7 +172,6 @@ heading = "Testing"
 cmd = """
 pytest \
     --cov=compwa_nbhooks \
-    --cov-fail-under=75 \
     --cov-report=html \
     --cov-report=xml \
     ${paths}
@@ -170,7 +186,7 @@ name = "paths"
 positional = true
 
 [tool.poe.groups.test.tasks.test]
-cmd = "pytest --no-summary ${paths}"
+cmd = "pytest ${paths}"
 executor = { group = "test" }
 help = "Run all unit tests"
 
@@ -221,9 +237,9 @@ help = "Run all continuous integration (CI) tasks locally"
 ignore_fail = "return_non_zero"
 sequence = [
     "style",
+    "linkcheck",
     "cov",
     "doc",
-    "linkcheck",
     "test-all",
 ]
 
@@ -362,7 +378,7 @@ key-empty = "off"
 
 [[tool.tombi.schemas]]
 root = "tool.compwa.policy"
-path = "https://raw.githubusercontent.com/ComPWA/policy/0.10.1/compwa-policy.schema.json"
+path = "https://raw.githubusercontent.com/ComPWA/policy/0.10.7/compwa-policy.schema.json"
 include = ["pyproject.toml"]
 
 [tool.ty.rules]

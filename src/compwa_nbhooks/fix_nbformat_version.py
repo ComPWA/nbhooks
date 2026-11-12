@@ -1,7 +1,7 @@
 """Set nbformat minor version to 4.
 
-nbformat adds random cell ids since version 5.x. This is annoying for git
-diffs. The solution is to set the version to v4 and removes those cell ids.
+nbformat adds random cell ids since version 5.x. This is annoying for git diffs. The
+solution is to set the version to v4 and removes those cell ids.
 """
 
 from __future__ import annotations
